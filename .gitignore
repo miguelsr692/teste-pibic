@@ -61,5 +61,5 @@ typings/
 .next
 
 # Meus arquivos
-.teste
-.credentials
+teste.js
+credentials.js
