@@ -18,7 +18,6 @@ io.on('connection', function(socket){
   console.log('a user connected');
 
   socket.on('chat message', async function(input) {
-    //const input = JSON.parse(aux);
     
 
     if(typeof(input) == "string") {

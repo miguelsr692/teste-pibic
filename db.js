@@ -9,10 +9,12 @@ const mongoose = require('mongoose');
 // const password = credencias.password;
 // const url = 'mongodb+srv://' + user + ':' + password + '@cluster0.dkgzg.mongodb.net/chatdemo'
 
-mongoose.connect(process.env.MONGODB_URI, { 
-    useNewUrlParse: true,
-    useUnifiedTopology: true
-});
+mongoose.connect(process.env.MONGODB_URI);
+
+// , { 
+//     useNewUrlParse: true,
+//     useUnifiedTopology: true
+// }
  
 const medicaoSchema = new mongoose.Schema({
     medicao: {
