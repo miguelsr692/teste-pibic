@@ -26,7 +26,7 @@ io.on('connection', function(socket){
     } else {
       const msg = input.Pacote;
 
-      for (var i in msg) {
+      /*for (var i in msg) {
         const font = msg[i].font;
         const x = msg[i].x;
         const y = msg[i].y;
@@ -38,7 +38,7 @@ io.on('connection', function(socket){
         const db = require("../db");
         const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
         const dado = Dado.create({ medicao: { font, x, y, z, TimeStamp }});
-      }
+      }*/
   
       console.log('OK!');
       io.emit('chat message', 'Dados salvos');
