@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 // const user = credencias.user;
 // const password = credencias.password;
 // const url = 'mongodb+srv://' + user + ':' + password + '@cluster0.dkgzg.mongodb.net/chatdemo'
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://UserTest:sesinho10@cluster0.dkgzg.mongodb.net/chatdemo', { 
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/chatdemo', { 
     useNewUrlParse: true,
     useUnifiedTopology: true
 });
