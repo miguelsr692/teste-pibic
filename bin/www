@@ -17,7 +17,9 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.on('chat message', async function(input) {
+  socket.on('chat message', async function(aux) {
+    const input = JSON.parse(aux);
+    
 
     if(typeof(input) == "string") {
       //const msg = JSON.parse(input);
