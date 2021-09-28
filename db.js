@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 // const user = credencias.user;
 // const password = credencias.password;
 // const url = 'mongodb+srv://' + user + ':' + password + '@cluster0.dkgzg.mongodb.net/chatdemo'
-mongoose.connect(process.env.MONGODB_URI, { 
+mongoose.connect("mongodb+srv://UserTest:<password>@cluster0.dkgzg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { 
     useNewUrlParse: true,
     useUnifiedTopology: true
 });
