@@ -19,6 +19,9 @@ io.on('connection', function (socket) {
 
   socket.on('chat message', async function (input) {
 
+    input = JSON.parse(input);
+    console.log(typeof(input));
+
     try {
       if (typeof (input) == "string") {
         //const msg = JSON.parse(input);
