@@ -73,20 +73,34 @@
 //     ]
 // };
 
-// let n = 3;
-// let m = Math.floor(b.Pacote.length/n);
-// let b_aux = {};
+const b = [
+    [11743, 0, 9.81, 0, 1637734886304],
+    [10, 0, 9.81, 0, 1637734886314],
+    [10, 0, 9.81, 0, 1637734886324],
+    [9, 0, 9.81, 0, 1637734886333],
+    [11, 0, 9.81, 0, 1637734886344],
+    [10, 0, 9.81, 0, 1637734886354],
+    [10, 0, 9.81, 0, 1637734886364],
+    [10, 0, 9.81, 0, 1637734886374],
+    [9, 0, 9.81, 0, 1637734886383],
+    [10, 0, 9.81, 0, 1637734886393],
+    [11, 0, 9.81, 0, 1637734886404]
+];
+
+let n = 2; // limite de envio
+let m = Math.floor(b.length / n);
+let b_aux = {};
 
 
-// for (var i=0; i<=m; i++) {
-//     b_aux.Pacote = b.Pacote.splice(0,n);
-//     console.log(b_aux);
-//     console.log('---------------');
-// }
+for (var i = 0; i <= m; i++) {
+    b_aux = b.splice(0, n);
+
+    for (var j in b_aux) {
+        console.log(b_aux[j][0]);
+        console.log(b_aux[j][1]);
+        console.log('salvo')
+    }
+    console.log('---------------');
+}
 
 
-const vetor = "[1, 2, 3, 4, 6]";
-
-var array = JSON.parse(vetor);
-
-console.log(array[4]);

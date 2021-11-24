@@ -14,49 +14,48 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
   console.log('a user connected');
 
-  socket.on('chat message', async function(input) {
+  socket.on('chat message', async function (input) {
 
     try {
-      // if(typeof(input) == "string") {
-      //   //const msg = JSON.parse(input);
-      //   console.log('servidor: ' + input)
-      //   io.emit('chat message', input);
-      // } else {
-      //   const msg = input.Pacote;
-  
-      //   for (var i in msg) {
-      //     const font = msg[i].font;
-      //     const x = msg[i].x;
-      //     const y = msg[i].y;
-      //     const z = msg[i].z;
-      //     const TimeStamp = msg[i].TimeStamp;
-      //     //const NewTimeStamp = msg[i].NewTimeStamp - ;
-      //     //const Delay = msg[i].Delay;
-    
-      //     const db = require("../db");
-      //     const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
-      //     const dado = Dado.create({ medicao: { font, x, y, z, TimeStamp }});
-      //   }
-    
-      //   console.log('OK!');
-      //   io.emit('chat message', 'Dados salvos');
-      // }
+      if (typeof (input) == "string") {
+        //const msg = JSON.parse(input);
+        console.log('servidor: ' + input)
+        io.emit('chat message', input);
+      } else {
 
-      input = JSON.parse(input);
-      console.log(typeof(input));
-      console.log(input.length);
-      io.emit('chat message', 'Dados salvos: ' + input.length);
+        for (i = 0; i < input.length; i++) {
+          const font = msg[i][0];
+          const x = msg[i][1];
+          const y = msg[i][2];
+          const z = msg[i][3];
+          const TimeStamp = msg[i][4];
+          //const NewTimeStamp = msg[i].NewTimeStamp - ;
+          //const Delay = msg[i].Delay;
+
+          const db = require("../db");
+          const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
+          const dado = Dado.create({ medicao: { font, x, y, z, TimeStamp } });
+        }
+
+        console.log('OK!');
+        io.emit('chat message', 'Dados salvos');
+      }
+
+      // input = JSON.parse(input);
+      // console.log(typeof(input));
+      // console.log(input.length);
+      // io.emit('chat message', 'Dados salvos: ' + input.length);
 
     } catch (erro) {
       console.log(erro);
     }
 
   });
-  
-  socket.on('disconnect', function(){
+
+  socket.on('disconnect', function () {
     console.log('user disconnected');
   });
 });
