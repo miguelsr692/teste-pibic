@@ -30,13 +30,13 @@ io.on('connection', function (socket) {
       } else {
 
         for (i = 0; i < input.length; i++) {
-          const font = msg[i][0];
-          const x = msg[i][1];
-          const y = msg[i][2];
-          const z = msg[i][3];
-          const TimeStamp = msg[i][4];
-          //const NewTimeStamp = msg[i].NewTimeStamp - ;
-          //const Delay = msg[i].Delay;
+          const font = input[i][0];
+          const x = input[i][1];
+          const y = input[i][2];
+          const z = input[i][3];
+          const TimeStamp = input[i][4];
+          //const NewTimeStamp = input[i].NewTimeStamp - ;
+          //const Delay = input[i].Delay;
 
           const db = require("../db");
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
