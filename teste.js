@@ -85,6 +85,8 @@
 // }
 
 
-const vetor = [1, 2, 3, 4, 6];
+const vetor = "[1, 2, 3, 4, 6]";
 
-console.log(vetor.length);
+var array = JSON.parse(vetor);
+
+console.log(array[4]);
