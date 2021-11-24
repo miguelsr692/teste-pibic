@@ -45,8 +45,9 @@ io.on('connection', function(socket){
       //   io.emit('chat message', 'Dados salvos');
       // }
 
-      console.log(input.Pacote.length);
-      io.emit('chat message', 'Dados salvos: ' + input.Pacote.length);
+      console.log(input.length);
+      console.log(input);
+      io.emit('chat message', 'Dados salvos: ' + input.length);
 
     } catch (erro) {
       console.log(erro);
