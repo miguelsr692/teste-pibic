@@ -87,20 +87,29 @@ const b = [
     [11, 0, 9.81, 0, 1637734886404]
 ];
 
-let n = 2; // limite de envio
+let n = 3; // limite de envio
 let m = Math.floor(b.length / n);
 let b_aux = {};
 
 
-for (var i = 0; i <= m; i++) {
-    b_aux = b.splice(0, n);
+// for (var i = 0; i <= m; i++) {
+//     b_aux = b.splice(0, n);
 
-    for (var j in b_aux) {
-        console.log(b_aux[j][0]);
-        console.log(b_aux[j][1]);
-        console.log('salvo')
-    }
+//     for (var j in b_aux) {
+//         console.log(b_aux[j][0]);
+//         console.log(b_aux[j][1]);
+//         console.log('salvo')
+//     }
+//     console.log('---------------');
+// }
+
+let index_atual = 0;
+for (var i = 0; i <= m; i++) {
+    b_aux = b.slice(index_atual,n+index_atual);
+    console.log(b_aux);
     console.log('---------------');
+
+    index_atual += n;
 }
 
 
