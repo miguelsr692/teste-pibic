@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 /* local */
-mongoose.connect('mongodb://localhost:27017/chatdemo');
+//mongoose.connect('mongodb://localhost:27017/chatdemo');
 
 /* cloud com arquivo secreto e credenciais */
 // const credencias = require('./credentials');
@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost:27017/chatdemo');
 // const url = 'mongodb+srv://' + user + ':' + password + '@cluster0.dkgzg.mongodb.net/chatdemo'
 
 /* cloud direto */
-//mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 // , { 
 //     useNewUrlParse: true,
