@@ -87,9 +87,9 @@ const b = [
     [11, 0, 9.81, 0, 1637734886404]
 ];
 
-let n = 3; // limite de envio
-let m = Math.floor(b.length / n);
-let b_aux = {};
+// let n = 3; // limite de envio
+// let m = Math.floor(b.length / n);
+// let b_aux = {};
 
 
 // for (var i = 0; i <= m; i++) {
@@ -103,13 +103,42 @@ let b_aux = {};
 //     console.log('---------------');
 // }
 
-let index_atual = 0;
-for (var i = 0; i <= m; i++) {
-    b_aux = b.slice(index_atual,n+index_atual);
-    console.log(b_aux);
-    console.log('---------------');
+// let index_atual = 0;
+// for (var i = 0; i <= m; i++) {
+//     b_aux = b.slice(index_atual,n+index_atual);
+//     console.log(b_aux);
+//     console.log('---------------');
 
-    index_atual += n;
+//     index_atual += n;
+// }
+
+// let x = b.length;
+// let y = 15;
+// let z = 0;
+// let w = 0;
+// let b_aux = [];
+// let aux = 0;
+// let banco_salvou = false;
+
+// while (z < x) {
+//     while (w < y) {
+//         b_aux[w] = b[z];
+//         w++;
+//         z++;
+//         if(z>=x) break;
+//     }
+//     while (!banco_salvou) {
+//         banco_salvou = true;
+//     }
+//     banco_salvou = false;
+//     console.log(b_aux);
+//     console.log('\n');
+//     b_aux = [];
+//     w = 0;
+// }
+
+for (var i in b) {
+    console.log(b[i]);
 }
 
-
+console.log(b.length);

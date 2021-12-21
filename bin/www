@@ -14,29 +14,28 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
+let vetor = []
 io.on('connection', function (socket) {
   console.log('a user connected');
 
   socket.on('chat message', async function (input) {
 
-    input = JSON.parse(input);
-    console.log(typeof(input));
+    if (input != "fim") {
+      input = JSON.parse(input);
+      for (var i in input) {
+        vetor.push(input[i]);
+      }
+    } else {
+      //console.log(vetor);
 
-    const num;
+      try {
 
-    try {
-      if (typeof (input) == "string") {
-        //const msg = JSON.parse(input);
-        console.log('servidor: ' + input)
-        io.emit('chat message', input);
-      } else {
-
-        for (i = 0; i < input.length; i++) {
-          const font = input[i][0];
-          const x = input[i][1];
-          const y = input[i][2];
-          const z = input[i][3];
-          const TimeStamp = input[i][4];
+        for (i = 0; i < vetor.length; i++) {
+          const font = vetor[i][0];
+          const x = vetor[i][1];
+          const y = vetor[i][2];
+          const z = vetor[i][3];
+          const TimeStamp = vetor[i][4];
           //const NewTimeStamp = input[i].NewTimeStamp - ;
           //const Delay = input[i].Delay;
 
@@ -44,22 +43,16 @@ io.on('connection', function (socket) {
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
           const dado = Dado.create({ medicao: { font, x, y, z, TimeStamp } });
 
-          num = Dado.count;
+          //var num = await Dado.collection.countDocuments();
         }
 
-        console.log(num);
+        console.log('OK!');
         io.emit('chat message', 'Dados salvos');
+        vetor = [];
+      } catch (erro) {
+        console.log(erro);
       }
-
-      // input = JSON.parse(input);
-      // console.log(typeof(input));
-      // console.log(input.length);
-      // io.emit('chat message', 'Dados salvos: ' + input.length);
-
-    } catch (erro) {
-      console.log(erro);
     }
-
   });
 
   socket.on('disconnect', function () {
