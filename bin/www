@@ -46,7 +46,7 @@ io.on('connection', function (socket) {
           //var num = await Dado.collection.countDocuments();
         }
 
-        console.log('OK!');
+        console.log('Ok!');
         io.emit('chat message', 'Dados salvos');
         vetor = [];
       } catch (erro) {
