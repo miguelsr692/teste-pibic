@@ -12,10 +12,6 @@ const mongoose = require('mongoose');
 /* cloud direto */
 mongoose.connect(process.env.MONGODB_URI);
 
-// , { 
-//     useNewUrlParse: true,
-//     useUnifiedTopology: true
-// }
  
 const medicaoSchema = new mongoose.Schema({
     medicao: {

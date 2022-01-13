@@ -14,44 +14,45 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-let vetor = []
+let vetor = [] //variavel que armazena os dados criada fora do escopo
+
 io.on('connection', function (socket) {
   console.log('a user connected');
 
   socket.on('chat message', async function (input) {
 
+    // verifica se o app ja enviou todas as partes do vetor
     if (input != "fim") {
       input = JSON.parse(input);
       for (var i in input) {
         vetor.push(input[i]);
       }
+      // se sim, começa a salvar no banco
     } else {
-      //console.log(vetor);
 
       try {
 
         for (i = 0; i < vetor.length; i++) {
-          const font = vetor[i][0];
-          const x = vetor[i][1];
-          const y = vetor[i][2];
-          const z = vetor[i][3];
+          const x = vetor[i][0];
+          const y = vetor[i][1];
+          const z = vetor[i][2];
+          const delay = vetor[i][3];
           const TimeStamp = vetor[i][4];
-          //const NewTimeStamp = input[i].NewTimeStamp - ;
-          //const Delay = input[i].Delay;
 
           const db = require("../db");
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
           const dado = Dado.create({ medicao: { font, x, y, z, TimeStamp } });
-
-          //var num = await Dado.collection.countDocuments();
         }
 
-        console.log('Ok!');
-        io.emit('chat message', 'Dados salvos');
         vetor = [];
+
       } catch (erro) {
         console.log(erro);
       }
+
+      console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
+      io.emit('display', 'Dados salvos'); //mensagem para socket
+
     }
   });
 
