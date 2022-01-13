@@ -6,6 +6,7 @@ var debug = require('debug')('chatdemo:server');
 var http = require('http');
 const { type } = require('os');
 
+
 // Get port from environment and store in Express.
 var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
@@ -20,7 +21,7 @@ io.on('connection', function (socket) {
   console.log('a user connected');
 
   socket.on('chat message', async function (input) {
-
+    
     // verifica se o app ja enviou todas as partes do vetor
     if (input != "fim") {
       input = JSON.parse(input);
@@ -28,7 +29,8 @@ io.on('connection', function (socket) {
         vetor.push(input[i]);
       }
       // se sim, começa a salvar no banco
-    } else {
+    } 
+    else {
 
       try {
 
@@ -39,9 +41,12 @@ io.on('connection', function (socket) {
           const delay = vetor[i][3];
           const TimeStamp = vetor[i][4];
 
+          //salva no banco
           const db = require("../db");
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
-          const dado = Dado.create({ medicao: { font, x, y, z, TimeStamp } });
+          const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
+
+          //await dado.save();
         }
 
         vetor = [];
@@ -54,6 +59,10 @@ io.on('connection', function (socket) {
       io.emit('display', 'Dados salvos'); //mensagem para socket
 
     }
+
+
+    console.log(vetor);
+    
   });
 
   socket.on('disconnect', function () {
