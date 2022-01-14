@@ -21,7 +21,7 @@ io.on('connection', function (socket) {
   console.log('a user connected');
 
   socket.on('chat message', async function (input) {
-    
+
     // verifica se o app ja enviou todas as partes do vetor
     if (input != "fim") {
       input = JSON.parse(input);
@@ -29,7 +29,7 @@ io.on('connection', function (socket) {
         vetor.push(input[i]);
       }
       // se sim, começa a salvar no banco
-    } 
+    }
     else {
 
       try {
@@ -56,19 +56,41 @@ io.on('connection', function (socket) {
       }
 
       console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
-      io.emit('display', 'Dados salvos'); //mensagem para socket
+      //io.emit('display', 'Dados salvos'); //mensagem para socket
+
+
+
+
+      // exemplo de resposta do servidor
+      var MongoClient = require('mongodb').MongoClient;
+      var url = process.env.MONGODB_URI;
+      var media = require('../script');
+
+      MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("chatdemo");
+
+        dbo.collection("dados").find({}).toArray(function (err, result) {
+          if (err) throw err;
+          console.log(media(result));
+          io.emit('display', media(result));
+          db.close();
+        });
+      });
+
+
+
+
 
     }
-
-
-    console.log(vetor);
-    
   });
 
   socket.on('disconnect', function () {
     console.log('user disconnected');
   });
 });
+
+
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);

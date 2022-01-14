@@ -141,10 +141,64 @@
 //     console.log(b[i]);
 // }
 
-// console.log(b.length);,
+// console.log(b.length);
 
 
-const db = require("../db");
-const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
+// const DB = require("./db");
+
+// const Dados = DB.Mongoose.model('dados', DB.MedicaoSchema, 'dados');
+
+
+
+// function find (name, query, cb) {
+//     DB.Mongoose.connection.db.collection(name, function (err, collection) {
+//         collection.find(query).toArray(cb);
+//     });  
+// }
+
+
+
+// find('dados', {x : 0.0}, function (err, docs) {
+//     console.dir(docs);
+// });
+
+
+// var mongoose = require("mongoose");
+// mongoose.connect('mongodb://localhost:27017/chatdemo');
+
+// var connection = mongoose.connection;
+
+// connection.on('error', console.error.bind(console, 'connection error:'));
+// connection.once('open', function () {
+
+//     connection.db.collection("dados", function(err, collection){
+//         collection.find({}).toArray(function(err, data){
+//             console.log(data); // it will print your collection data
+//         })
+//     });
+
+// });
+
+// var media = require('./script');
+// var db = require('./db');
+// const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
+// console.log(Dado.countDocuments({}));
+
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/chatdemo";
+var media = require('./script');
+
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("chatdemo");
+
+  dbo.collection("dados").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    media(result);
+    db.close();
+  });
+});
+
 
 
