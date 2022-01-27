@@ -48,13 +48,15 @@ io.on('connection', function (socket) {
 
         }
 
-        await dado.save();
         
+
         vetor = [];
 
       } catch (erro) {
         console.log(erro);
       }
+
+      await dado.save();
 
       console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
       //io.emit('display', 'Dados salvos'); //mensagem para socket
