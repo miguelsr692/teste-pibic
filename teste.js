@@ -185,20 +185,23 @@
 // console.log(Dado.countDocuments({}));
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/chatdemo";
+var url = 'mongodb+srv://UserTest:sesinho10@cluster0.dkgzg.mongodb.net/test?authSource=admin&replicaSet=atlas-viswpa-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
 var media = require('./script');
+let teste = 0;
 
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, async function(err, db) {
   if (err) throw err;
   var dbo = db.db("chatdemo");
+  teste = 2;
+  //console.log(await dbo.collection("dados").countDocuments());
+  
+  
 
   dbo.collection("dados").find({}).toArray(function(err, result) {
     if (err) throw err;
     media(result);
+    if (teste == 2) console.log(teste);
     db.close();
   });
 });
-
-
-
