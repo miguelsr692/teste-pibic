@@ -52,6 +52,7 @@ io.on('connection', function (socket) {
 
 
 
+        
         vetor = [];
 
       } catch (erro) {
