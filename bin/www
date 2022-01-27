@@ -48,7 +48,7 @@ io.on('connection', function (socket) {
 
         }
 
-        
+
 
         vetor = [];
 
@@ -65,21 +65,7 @@ io.on('connection', function (socket) {
 
 
       // exemplo de resposta do servidor
-      var MongoClient = require('mongodb').MongoClient;
-      var url = process.env.MONGODB_URI;
-      var media = require('../script');
 
-      MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("chatdemo");
-
-        dbo.collection("dados").find({}).toArray(function (err, result) {
-          if (err) throw err;
-          console.log(media(result));
-          io.emit('display', media(result));
-          db.close();
-        });
-      });
 
 
 
@@ -87,7 +73,23 @@ io.on('connection', function (socket) {
 
     }
 
-    
+    var MongoClient = require('mongodb').MongoClient;
+    var url = process.env.MONGODB_URI;
+    var media = require('../script');
+
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("chatdemo");
+
+      dbo.collection("dados").find({}).toArray(function (err, result) {
+        if (err) throw err;
+        console.log(media(result));
+        io.emit('display', media(result));
+        db.close();
+      });
+    });
+
+
   });
 
   socket.on('disconnect', function () {
