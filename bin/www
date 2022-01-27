@@ -46,7 +46,7 @@ io.on('connection', function (socket) {
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
           const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
-          //await dado.save();
+          await dado.save();
         }
 
         vetor = [];
@@ -83,6 +83,8 @@ io.on('connection', function (socket) {
 
 
     }
+
+    
   });
 
   socket.on('disconnect', function () {
