@@ -44,8 +44,7 @@ io.on('connection', function (socket) {
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
           const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
-          //await Dado.countDocuments();
-          await Dado.toString();
+          await Dado.countDocuments(); //conta o numero de medições do banco - força espera para salvamento
         }
 
         vetor = [];
