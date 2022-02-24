@@ -47,23 +47,19 @@ io.on('connection', function (socket) {
           const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
           var tamanho = await Dado.countDocuments();
-
         }
 
 
-
-        
         vetor = [];
 
       } catch (erro) {
         console.log(erro);
       }
 
-      console.log(tamanho);
+      // console.log(input);
 
       console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
       //io.emit('display', 'Dados salvos'); //mensagem para socket
-
 
 
 
@@ -85,13 +81,11 @@ io.on('connection', function (socket) {
         });
       });  
 
-
-
-
     }
 
 
-
+    // console.log(input);
+    // io.emit('chat message', input);
   });
 
   socket.on('disconnect', function () {
