@@ -31,9 +31,7 @@ io.on('connection', function (socket) {
       // se sim, começa a salvar no banco
     }
     else {
-
       try {
-
         for (i = 0; i < vetor.length; i++) {
           const x = vetor[i][0];
           const y = vetor[i][1];
@@ -46,9 +44,9 @@ io.on('connection', function (socket) {
           const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
           const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
-          var tamanho = await Dado.countDocuments();
+          //var tamanho = await Dado.countDocuments();
+          await Dado.countDocuments();
         }
-
 
         vetor = [];
 
@@ -59,7 +57,7 @@ io.on('connection', function (socket) {
       // console.log(input);
 
       console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
-      //io.emit('display', 'Dados salvos'); //mensagem para socket
+      //io.emit('display', 'Dados salvos'); //mensagem para o socket
 
 
 
