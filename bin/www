@@ -45,7 +45,8 @@ io.on('connection', function (socket) {
           const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
           //var tamanho = await Dado.countDocuments();
-          await Dado.countDocuments();
+          //await Dado.countDocuments();
+          //await Dado.toString();
         }
 
         vetor = [];
