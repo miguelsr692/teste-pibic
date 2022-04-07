@@ -22,68 +22,70 @@ io.on('connection', function (socket) {
 
   socket.on('chat message', async function (input) {
 
-    // verifica se o app ja enviou todas as partes do vetor
-    if (input != "fim") {
-      input = JSON.parse(input);
-      for (var i in input) {
-        vetor.push(input[i]);
-      }
-      // se sim, começa a salvar no banco
-    }
-    else {
-      try {
-        for (i = 0; i < vetor.length; i++) {
-          const x = vetor[i][0];
-          const y = vetor[i][1];
-          const z = vetor[i][2];
-          const delay = vetor[i][3];
-          const TimeStamp = vetor[i][4];
+    io.emit('chat message', input);
 
-          //salva no banco
-          const db = require("../db");
-          const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
-          const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
+//descomentar inicio
+    // // verifica se o app ja enviou todas as partes do vetor
+    // if (input != "fim") {
+    //   input = JSON.parse(input);
+    //   for (var i in input) {
+    //     vetor.push(input[i]);
+    //   }
+    //   // se sim, começa a salvar no banco
+    // }
+    // else {
+    //   try {
+    //     for (i = 0; i < vetor.length; i++) {
+    //       const x = vetor[i][0];
+    //       const y = vetor[i][1];
+    //       const z = vetor[i][2];
+    //       const delay = vetor[i][3];
+    //       const TimeStamp = vetor[i][4];
 
-          await Dado.countDocuments(); //conta o numero de medições do banco - força espera para salvamento
-        }
+    //       //salva no banco
+    //       const db = require("../db");
+    //       const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
+    //       const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
-        vetor = [];
+    //       await Dado.countDocuments(); //conta o numero de medições do banco - força espera para salvamento
+    //     }
 
-      } catch (erro) {
-        console.log(erro);
-      }
+    //     vetor = [];
 
-      // console.log(input);
+    //   } catch (erro) {
+    //     console.log(erro);
+    //   }
 
-      console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
-      //io.emit('display', 'Dados salvos'); //mensagem para o socket
+    //   // console.log(input);
+
+    //   console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
+    //   //io.emit('display', 'Dados salvos'); //mensagem para o socket
+      
 
 
-
-      // exemplo de resposta do servidor
-      var MongoClient = require('mongodb').MongoClient;
-      var url = process.env.MONGODB_URI;
-      var media = require('../script');
+    //   // exemplo de resposta do servidor
+    //   var MongoClient = require('mongodb').MongoClient;
+    //   var url = process.env.MONGODB_URI;
+    //   var media = require('../script');
       
   
-      MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("chatdemo");
+    //   MongoClient.connect(url, function (err, db) {
+    //     if (err) throw err;
+    //     var dbo = db.db("chatdemo");
   
-        dbo.collection("respostas").find({}).toArray(function (err, result) {
-          if (err) throw err;
+    //     dbo.collection("respostas").find({}).toArray(function (err, result) {
+    //       if (err) throw err;
 
           
-          console.log(result);
-          io.emit('display', 'RECEBIDO');
+    //       io.emit('algoritmo', 'START');
 
 
-          db.close();
-        });
-      });  
+    //       db.close();
+    //     });
+    //   });
 
-    }
-
+    // }
+// descomentar final
 
     // console.log(input);
     // io.emit('chat message', input);
