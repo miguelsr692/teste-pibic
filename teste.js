@@ -184,24 +184,31 @@
 // const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
 // console.log(Dado.countDocuments({}));
 
-var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb+srv://UserTest:sesinho10@cluster0.dkgzg.mongodb.net/test?authSource=admin&replicaSet=atlas-viswpa-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
-var media = require('./script');
-let teste = 0;
+// var MongoClient = require('mongodb').MongoClient;
+// var url = 'mongodb+srv://UserTest:sesinho10@cluster0.dkgzg.mongodb.net/test?authSource=admin&replicaSet=atlas-viswpa-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
+// var media = require('./script');
+// let teste = 0;
 
 
-MongoClient.connect(url, async function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("chatdemo");
-  teste = 2;
-  //console.log(await dbo.collection("dados").countDocuments());
+// MongoClient.connect(url, async function(err, db) {
+//   if (err) throw err;
+//   var dbo = db.db("chatdemo");
+//   teste = 2;
+//   //console.log(await dbo.collection("dados").countDocuments());
   
   
 
-  dbo.collection("dados").find({}).toArray(function(err, result) {
-    if (err) throw err;
-    media(result);
-    if (teste == 2) console.log(teste);
-    db.close();
-  });
-});
+//   dbo.collection("dados").find({}).toArray(function(err, result) {
+//     if (err) throw err;
+//     media(result);
+//     if (teste == 2) console.log(teste);
+//     db.close();
+//   });
+// });
+
+
+var dado = 
+"[[0.0, 9.77631, 0.812349, 10, 1650479830703], [0.0, 9.77631, 0.812349, 12, 1650479830715], [0.0, 9.77631, 0.812349, 11, 1650479830736], [0.0, 9.77631, 0.812349, 11, 1650479830819], [0.0, 9.77631, 0.812349, 11, 1650479830850], [0.0, 9.77631, 0.812349, 11, 1650479830924], [0.0, 9.77631, 0.812349, 11, 1650479830935], [0.0, 9.77631, 0.812349, 12, 1650479830956], [0.0, 9.77631, 0.812349, 11, 1650479830987], [0.0, 9.77631, 0.812349, 11, 1650479831008]]";
+var dado2 = "teste"
+
+console.log(dado.includes("[["));

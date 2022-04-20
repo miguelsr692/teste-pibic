@@ -4,6 +4,7 @@
 var app = require('../app');
 var debug = require('debug')('chatdemo:server');
 var http = require('http');
+const db = require("../db");
 const { type } = require('os');
 
 
@@ -22,73 +23,49 @@ io.on('connection', function (socket) {
 
   socket.on('chat message', async function (input) {
 
-    io.emit('chat message', input);
+    if (input.includes("[[") || input==="fim") {
+      //descomentar - inicio
+      // verifica se o app ja enviou todas as partes do vetor
+      if (input != "fim") {
+        input = JSON.parse(input);
+        for (var i in input) {
+          vetor.push(input[i]);
+        }
+        // se sim, começa a salvar no banco
+      } else {
+        try {
+          for (i = 0; i < vetor.length; i++) {
+            const x = vetor[i][0];
+            const y = vetor[i][1];
+            const z = vetor[i][2];
+            const delay = vetor[i][3];
+            const TimeStamp = vetor[i][4];
 
-//descomentar inicio
-    // // verifica se o app ja enviou todas as partes do vetor
-    // if (input != "fim") {
-    //   input = JSON.parse(input);
-    //   for (var i in input) {
-    //     vetor.push(input[i]);
-    //   }
-    //   // se sim, começa a salvar no banco
-    // }
-    // else {
-    //   try {
-    //     for (i = 0; i < vetor.length; i++) {
-    //       const x = vetor[i][0];
-    //       const y = vetor[i][1];
-    //       const z = vetor[i][2];
-    //       const delay = vetor[i][3];
-    //       const TimeStamp = vetor[i][4];
+            //salva no banco
+            const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
+            Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
 
-    //       //salva no banco
-    //       const db = require("../db");
-    //       const Dado = db.Mongoose.model('dados', db.MedicaoSchema, 'dados');
-    //       const dado = Dado.create({ medicao: { x, y, z, delay, TimeStamp } });
+            await Dado.countDocuments(); //conta o numero de medições do banco - força espera para salvamento
+          }
 
-    //       await Dado.countDocuments(); //conta o numero de medições do banco - força espera para salvamento
-    //     }
+          vetor = [];
 
-    //     vetor = [];
-
-    //   } catch (erro) {
-    //     console.log(erro);
-    //   }
-
-    //   // console.log(input);
-
-    //   console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
-    //   //io.emit('display', 'Dados salvos'); //mensagem para o socket
-      
+        } catch (erro) {
+          console.log(erro);
+        }
 
 
-    //   // exemplo de resposta do servidor
-    //   var MongoClient = require('mongodb').MongoClient;
-    //   var url = process.env.MONGODB_URI;
-    //   var media = require('../script');
-      
-  
-    //   MongoClient.connect(url, function (err, db) {
-    //     if (err) throw err;
-    //     var dbo = db.db("chatdemo");
-  
-    //     dbo.collection("respostas").find({}).toArray(function (err, result) {
-    //       if (err) throw err;
+        console.log('Ok! Todos os dados foram salvos'); //mensagem para console da aplicação
+        io.emit("display", "PRONTO");
 
-          
-    //       io.emit('algoritmo', 'START');
+      }
+      // descomentar - final
+    } else {
+      io.emit('chat message', input); //emit para poder printar na pagina o input
+      io.emit('display', input); //emit para fazer as trocas
+      console.log(input); //print no terminal
+    }
 
-
-    //       db.close();
-    //     });
-    //   });
-
-    // }
-// descomentar final
-
-    // console.log(input);
-    // io.emit('chat message', input);
   });
 
   socket.on('disconnect', function () {
