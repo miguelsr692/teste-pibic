@@ -8,12 +8,11 @@ const mongoose = require('mongoose');
 
 /* cloud com arquivo secreto e credenciais */
 const credencias = require('./credentials');
-const url = 'mongodb+srv://' + credencias.user + ':' + credencias.password + '@cluster0.dkgzg.mongodb.net/chatdemo'
-
+//const url = 'mongodb+srv://' + credencias.user + ':' + credencias.password + '@cluster0.dkgzg.mongodb.net/chatdemo'
+const url = 'mongodb+srv://UserTest:sesinho10@cluster0.dkgzg.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(url);
 
- 
 const medicaoSchema = new mongoose.Schema({
     medicao: {
         type: Object,
